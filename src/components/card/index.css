@@ -1,0 +1,7 @@
+
+.custom-card {
+    padding: 0.75rem;
+    border-width: 0.2rem 0.2rem 0.2rem !important;
+    border-color: #eeeeee !important;
+    overflow: scroll;
+}
