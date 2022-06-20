@@ -1,0 +1,11 @@
+.game-board {
+    margin: auto;
+    width: fit-content;
+    height: fit-content;
+}
+
+.nine-square {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #000000;
+}
