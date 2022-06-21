@@ -8,7 +8,8 @@ export interface SudokuSquareState {
 }
 
 export interface SudokuUpdateParam {
-  [index: number]: SudokuSquareState,
+  index: number,
+  value: SudokuSquareState,
 }
 
 interface SudokuState {
@@ -28,9 +29,7 @@ export const sudokuSlice = createSlice({
   initialState,
   reducers: {
     setSquares: (state, action: PayloadAction<SudokuUpdateParam>) => {
-      state.squares = state.squares.map((square, index) => (
-        action.payload[index] || square
-      ));
+      state.squares[action.payload.index] = action.payload.value;
     },
   },
 });
