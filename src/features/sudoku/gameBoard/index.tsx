@@ -1,4 +1,6 @@
+import {Spacing} from '../../../components/spacing';
 import {Stack} from '../../../components/stack';
+import {ChoiceSquare} from '../choiceSquare';
 import {SudokuSquare} from '../sudokuSquare';
 import './index.css';
 
@@ -26,6 +28,18 @@ export const GameBoard = () => {
             </div>
           ))
         )} rows={3} cols={3} />
+      </div>
+      <Spacing marginTop='2rem' />
+      <div >
+        <div className='choice-pad'>
+          <Stack childrens={(
+            [...Array(18)].map((_, i) => (
+              <ChoiceSquare key={i} value={i % 9} isDraft={i >= 9} />
+            ))
+          )}
+          rows={2} cols={9}
+          />
+        </div>
       </div>
     </div>
   );
