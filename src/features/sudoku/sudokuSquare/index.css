@@ -8,10 +8,27 @@
     height: 3rem;
     user-select: none;
     line-height: 3rem;
+    color: #2c71db;
+}
+
+.error-square {
+    color: #eb6d6d !important;
+    background-color: #ffd1d1 !important;
 }
 
 .draft-square {
     font-size: 0.66rem;
+    color: #7f858e !important;
+    width: 1rem;
+    height: 1rem;
+    user-select: none;
+    line-height: 1rem;
+}
+
+.draft-square-affected {
+    font-size: 0.66rem;
+    color: #5488d6 !important;
+    font-weight: bold;
     width: 1rem;
     height: 1rem;
     user-select: none;
@@ -24,6 +41,10 @@
 
 .affected-square {
     background: #e3ebf2;
+}
+
+.same-value-square {
+    background: #d6e8f9;
 }
 
 .selected-square {

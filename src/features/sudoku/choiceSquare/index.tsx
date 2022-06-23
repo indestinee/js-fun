@@ -1,7 +1,12 @@
 import {useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {RootState} from '../../../redux/store';
-import {deltaCount, setSquare} from '../../../redux/sudokuSlice';
+import {
+  clearDraft,
+  deltaCount,
+  setSquare,
+} from '../../../redux/sudokuSlice';
+import {getRelatedSquares} from '../utils/sudoku';
 import './index.css';
 
 interface ChoiceSquareParam {
@@ -11,18 +16,36 @@ interface ChoiceSquareParam {
 
 export const ChoiceSquare = ({value, isDraft}: ChoiceSquareParam) => {
   const [onTouch, setOnTouch] = useState(false);
+  const [alert, setAlert] = useState(false);
+
   const count = useAppSelector((state: RootState) =>
     state.sudoku.count[value],
   );
 
-  const selected = useAppSelector((state: RootState) => state.sudoku.selected);
-  const squares = useAppSelector((state: RootState) => state.sudoku.squares);
+  const {selected, squares, errored} = useAppSelector(
+    (state: RootState) => state.sudoku);
   const dispatch = useAppDispatch();
 
+  const isInvalid = () => {
+    return getRelatedSquares(selected).some(
+      (index) => squares[index].value == value);
+  };
+
   const selectSquare = () => {
-    if (selected == -1 || count == 9 || squares[selected].value != -1) {
+    if (errored ||
+      selected == -1 ||
+      count == 9 ||
+      squares[selected].value != -1) {
       return;
     }
+
+    const invalid = isInvalid();
+    if (invalid) {
+      setAlert(true);
+      setTimeout(() => setAlert(false), 1000);
+      return;
+    }
+
     if (isDraft) {
       console.log(`add draft ${selected} to ${value}`);
       const draft = [...squares[selected].draft];
@@ -41,6 +64,10 @@ export const ChoiceSquare = ({value, isDraft}: ChoiceSquareParam) => {
       value,
       draft: [...Array(9)].map(() => false),
     }));
+    dispatch(clearDraft({
+      indices: getRelatedSquares(selected),
+      value,
+    }));
     dispatch(deltaCount({
       index: value,
       value: 1,
@@ -51,9 +78,11 @@ export const ChoiceSquare = ({value, isDraft}: ChoiceSquareParam) => {
     <div
       className={[
         'choice-square',
-        isDraft ? 'choice-square-draft': '',
-        onTouch ? 'choice-square-ontouch' : '',
-        count == 9 ? 'choice-square-disabled' : '',
+        alert ? 'choice-square-alert' : [
+          isDraft ? 'choice-square-draft': '',
+          onTouch ? 'choice-square-ontouch' : '',
+          count == 9 ? 'choice-square-disabled' : '',
+        ].filter((s) => !!s).join(' '),
       ].filter((s) => !!s).join(' ')}
       onClick={selectSquare}
       onMouseOver={() => setOnTouch(true)}

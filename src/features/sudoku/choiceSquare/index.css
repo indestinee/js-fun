@@ -3,6 +3,11 @@
     opacity: 0.5;
 }
 
+.choice-square-alert {
+    color: #eb6d6d !important;
+    background-color: #ffd1d1 !important;
+}
+
 .choice-square-draft {
     color: #7f858e !important;
 }
