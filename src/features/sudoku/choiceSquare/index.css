@@ -1,0 +1,32 @@
+.choice-square-disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.choice-square-alert {
+    color: #eb6d6d !important;
+    background-color: #ffd1d1 !important;
+}
+
+.choice-square-draft {
+    color: #7f858e !important;
+}
+
+.choice-square-ontouch {
+    background: #e1e7f2 !important;
+}
+
+.choice-square {
+    background: #ebeef3;
+    color: #2c71db;
+    border-radius: 5px;
+    border: 0;
+    margin: 2px;
+    padding: 0;
+    text-align: center;
+    font-size: 2rem;
+    width: 3rem;
+    height: 3rem;
+    user-select: none;
+    line-height: 3rem;
+}
