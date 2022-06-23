@@ -20,3 +20,28 @@
     height: fit-content;
     text-align: center;
 }
+
+.action-pad {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    width: fit-content;
+    height: fit-content;
+    text-align: center;
+}
+
+.action-button {
+    margin: 2px;
+    padding: 0;
+    text-align: center;
+    font-size: 1.5rem;
+    width: 2rem;
+    height: 2rem;
+    user-select: none;
+    line-height: 2rem;
+    color: #165b9b;
+}
+
+.action-button.select {
+    color: #0c3052;
+}
