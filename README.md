@@ -12,12 +12,17 @@ Generation Algorithm:
 
 See this for preview of UI: https://github.com/indestinee/js-fun/pull/7
 
-In the project directory, you can run:
 
-## Develop
+## Setup
 
-`yarn start`
+Requirement: `yarn` 
+
+Run `$ yarn install`
+
+### Develop
+
+`$ yarn start`
 
 ## Build
 
-`yarn build`
+`$ yarn build`
