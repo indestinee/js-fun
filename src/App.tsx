@@ -1,9 +1,9 @@
 import {Route, Routes} from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
 import {Container, Nav, Navbar} from 'react-bootstrap';
 import {NavLink} from 'react-router-dom';
 import {Spacing} from './components/spacing';
+import Sudoku from './features/sudoku/pages';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 const Navigation = () => {
@@ -14,6 +14,7 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
+            <NavLink className="nav-link" to="/js-fun/sudoku">Sudoku</NavLink>
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -26,10 +27,11 @@ function App() {
   return (
     <div>
       <Navigation/>
-      <div className="app-container container">
+      <div>
         <Spacing marginTop='1rem' />
         <Routes>
-          <Route path="/" element={(<>hi</>)}/>
+          <Route path="/js-fun" element={<Sudoku />}/>
+          <Route path="/js-fun/sudoku" element={<Sudoku/>}/>
         </Routes>
       </div>
     </div>

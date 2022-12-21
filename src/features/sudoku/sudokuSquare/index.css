@@ -1,0 +1,75 @@
+.sudoku-square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    font-size: 6vw;
+    border: 1px solid #bdc4d2;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    user-select: none;
+    color: #2c71db;
+}
+
+.sudoku-square-puzzle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    font-size: 6vw;
+    border: 1px solid #bdc4d2;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    user-select: none;
+    color: #224272;
+}
+
+.error-square {
+    color: #eb6d6d !important;
+    background-color: #ffd1d1 !important;
+}
+
+.draft-square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #7f858e !important;
+    font-size: 3vw;
+    line-height: 3vw;
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+.draft-square-affected {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #5488d6 !important;
+    font-size: 3vw;
+    line-height: 3vw;
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+}
+
+.normal-square {
+    background: #ffffff;
+}
+
+.affected-square {
+    background: #e3ebf2;
+}
+
+.same-value-square {
+    background: #c1ddf8;
+}
+
+.selected-square {
+    background: #c1ddf8;
+}
