@@ -1,8 +1,11 @@
-import {FaUndoAlt, FaPlus} from 'react-icons/fa';
+import {useState} from 'react';
+import {FaUndoAlt, FaPlus, FaRegDizzy, FaRegSmileWink} from 'react-icons/fa';
+import {Constants} from '../../../common/constants';
 import {Spacing} from '../../../components/spacing';
 import {Stack} from '../../../components/stack';
-import {useAppDispatch} from '../../../redux/hooks';
-import {revert} from '../../../redux/sudokuSlice';
+import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
+import {RootState} from '../../../redux/store';
+import {revert, newGame} from '../../../redux/sudokuSlice';
 import {ChoiceSquare} from '../choiceSquare';
 import {SudokuSquare} from '../sudokuSquare';
 import './index.css';
@@ -18,31 +21,58 @@ const calculate = (i: number, j: number) => {
 
 export const GameBoard = () => {
   const dispatch = useAppDispatch();
+
+  const {mistakes} = useAppSelector((state: RootState) => state.sudoku);
+  const currentDifficulty = useAppSelector(
+    (state: RootState) => state.sudoku.gameState.difficulty);
+  const [difficulty, setDifficulty] = useState(Constants.initialDifficulty);
+
   return (
     <div className="game-board">
       <div className='action-pad'>
-        <div className='action-button' onClick={() => {
-          dispatch(revert());
-        }}>
-          <FaUndoAlt />
-        </div>
-        <div className='action-button'>
+        <div className='action-button'
+          onClick={() => dispatch(newGame(difficulty))}>
           <FaPlus />
+        </div> &nbsp;
+        <div className='action-button' onClick={() => dispatch(revert())}>
+          <FaUndoAlt />
+        </div> &nbsp;
+        <div className={`${mistakes > 0 ? 'mistakes' : 'normal'}`}>
+          Mistake: {mistakes} &nbsp;
+          {mistakes > 0 ? <FaRegDizzy /> : <FaRegSmileWink /> }
+        </div>
+      </div>
+      <div className='action-pad'>
+        <div className='normal'>
+          Difficulty Current : {currentDifficulty} &nbsp;
+          Target:
+          <input className='input-pad'
+            value={difficulty}
+            onChange={(event) => {
+              const val = parseInt(event.target.value);
+              setDifficulty(Number.isNaN(val) ? 0 : val);
+            }}
+          />
         </div>
       </div>
       <Spacing marginBottom='1rem' />
-      <div className="nine-square">
-        <Stack childrens={(
-          [...Array(9)].map((_, i) => (
-            <div key={i} className="nine-square">
-              <Stack childrens={(
-                [...Array(9)].map((_, j) => (
-                  <SudokuSquare key={calculate(i, j)} index={calculate(i, j)} />
-                ))
-              )} rows={3} cols={3} />
-            </div>
-          ))
-        )} rows={3} cols={3} />
+      <div className='board'>
+        <div className="nine-square">
+          <Stack childrens={(
+            [...Array(9)].map((_, i) => (
+              <div key={i} className="nine-square">
+                <Stack childrens={(
+                  [...Array(9)].map((_, j) => (
+                    <SudokuSquare
+                      key={calculate(i, j)}
+                      index={calculate(i, j)}
+                    />
+                  ))
+                )} rows={3} cols={3} />
+              </div>
+            ))
+          )} rows={3} cols={3} />
+        </div>
       </div>
       <Spacing marginTop='2rem' />
       <div className='choice-pad'>

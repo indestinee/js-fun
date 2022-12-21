@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import {Constants} from '../../../common/constants';
 import {Stack} from '../../../components/stack';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {RootState} from '../../../redux/store';
@@ -15,15 +16,18 @@ enum SquareStatus {
 
 const DraftSquare = ({value}: {value: number}) => {
   const selectedSquare = useAppSelector(
-    (state: RootState) => (state.sudoku.selected != -1 ?
-      state.sudoku.squares[state.sudoku.selected] : undefined));
+    (state: RootState) => (
+      state.sudoku.gameState.selected != Constants.empty ?
+        state.sudoku.gameState.squares[state.sudoku.gameState.selected] :
+        undefined));
 
   return (
     <div className={
       `draft-square${
-        (selectedSquare?.value != -1 && selectedSquare?.value == value) ?
+        (selectedSquare?.value != Constants.empty &&
+          selectedSquare?.value == value) ?
           '-affected': ''}`}>
-      {(value == -1) ? '' : (value + 1)}
+      {(value == Constants.empty) ? '' : (value + 1)}
     </div>
   );
 };
@@ -33,13 +37,14 @@ export const SudokuSquare = ({index}: {index: number}) => {
   const [status, setStatus] = useState(SquareStatus.NORMAL);
 
   const {selected, errored} = useAppSelector(
-    (state: RootState) => state.sudoku);
+    (state: RootState) => state.sudoku.gameState);
   const answer = useAppSelector(
     (state: RootState) => state.sudoku.answer[index]);
   const square = useAppSelector(
-    (state: RootState) => state.sudoku.squares[index]);
+    (state: RootState) => state.sudoku.gameState.squares[index]);
   const selectedSquare = useAppSelector(
-    (state: RootState) => state.sudoku.squares[state.sudoku.selected]);
+    (state: RootState) =>
+      state.sudoku.gameState.squares[state.sudoku.gameState.selected]);
 
   const selectSquare = () => {
     if (errored) {
@@ -49,12 +54,13 @@ export const SudokuSquare = ({index}: {index: number}) => {
   };
 
   useEffect(() => {
-    if (square.value != -1 && answer != -1 && square.value != answer) {
+    if (square.value != Constants.empty &&
+      answer != Constants.empty && square.value != answer) {
       setStatus(SquareStatus.ERROR);
       dispatch(setErrored(true));
       return;
     }
-    if (selected == -1) {
+    if (selected == Constants.empty) {
       setStatus(SquareStatus.NORMAL);
       return;
     }
@@ -67,7 +73,7 @@ export const SudokuSquare = ({index}: {index: number}) => {
       setStatus(SquareStatus.AFFECTED);
       return;
     }
-    if (selectedSquare.value != -1 &&
+    if (selectedSquare.value != Constants.empty &&
       selectedSquare.value == square.value) {
       setStatus(SquareStatus.SAME_VALUE);
       return;
@@ -78,12 +84,12 @@ export const SudokuSquare = ({index}: {index: number}) => {
 
   return (
     <div
-      className={`sudoku-square ${status}-square`}
+      className={`sudoku-square${square.puzzle?'-puzzle':''} ${status}-square`}
       onClick={selectSquare}>
-      {(square.value != -1) ? square.value + 1 :
+      {(square.value != Constants.empty) ? square.value + 1 :
         <Stack childrens={
           [...square.draft].map((val, i) => (
-            <DraftSquare key={i} value={val ? i : -1} />
+            <DraftSquare key={i} value={val ? i : Constants.empty} />
           ))
         } rows={3} cols={3} />
       }

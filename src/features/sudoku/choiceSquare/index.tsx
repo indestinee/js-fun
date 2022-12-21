@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {Constants} from '../../../common/constants';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {RootState} from '../../../redux/store';
 import {
@@ -19,11 +20,11 @@ export const ChoiceSquare = ({value, isDraft}: ChoiceSquareParam) => {
   const [alert, setAlert] = useState(false);
 
   const count = useAppSelector((state: RootState) =>
-    state.sudoku.count[value],
+    state.sudoku.gameState.count[value],
   );
 
   const {selected, squares, errored} = useAppSelector(
-    (state: RootState) => state.sudoku);
+    (state: RootState) => state.sudoku.gameState);
   const dispatch = useAppDispatch();
 
   const isInvalid = () => {
@@ -31,11 +32,9 @@ export const ChoiceSquare = ({value, isDraft}: ChoiceSquareParam) => {
       (index) => squares[index].value == value);
   };
 
-  const selectSquare = () => {
-    if (errored ||
-      selected == -1 ||
-      count == 9 ||
-      squares[selected].value != -1) {
+  const fillNumber = () => {
+    if (errored || selected == Constants.empty ||
+      count == 9 || squares[selected].value != Constants.empty) {
       return;
     }
 
@@ -52,25 +51,18 @@ export const ChoiceSquare = ({value, isDraft}: ChoiceSquareParam) => {
       draft[value] = !draft[value];
       dispatch(setSquare({
         index: selected,
-        value: -1,
+        value: Constants.empty,
         draft,
       }));
       return;
     }
 
-    console.log(`set ${selected} to ${value}`);
+    dispatch(clearDraft({indices: getRelatedSquares(selected), value}));
+    dispatch(deltaCount({index: value, value: 1}));
     dispatch(setSquare({
       index: selected,
       value,
       draft: [...Array(9)].map(() => false),
-    }));
-    dispatch(clearDraft({
-      indices: getRelatedSquares(selected),
-      value,
-    }));
-    dispatch(deltaCount({
-      index: value,
-      value: 1,
     }));
   };
 
@@ -84,11 +76,11 @@ export const ChoiceSquare = ({value, isDraft}: ChoiceSquareParam) => {
           count == 9 ? 'choice-square-disabled' : '',
         ].filter((s) => !!s).join(' '),
       ].filter((s) => !!s).join(' ')}
-      onClick={selectSquare}
+      onClick={fillNumber}
       onMouseOver={() => setOnTouch(true)}
       onMouseLeave={() => setOnTouch(false)}
     >
-      {value+1}
+      {value + 1}
     </div>
   );
 };

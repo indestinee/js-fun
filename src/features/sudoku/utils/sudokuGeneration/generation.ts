@@ -5,16 +5,14 @@ import {SudokuAnswer} from './sudokuAnswer';
 const initializeExactCover = () => {
   const dlx = new DancingLinks(9 * 9 * 9, 9 * 9 * 4);
   /*
-  rows
-    9 * 9 * 9 -> each square fill each digit
-*/
-  /*
-  cols
-    9 * 9 -> each row each digit
-    9 * 9 -> each col each digit
-    9 * 9 -> each nine-squares each digit
-    9 * 9 -> whether each square fill
-*/
+    rows
+      9 * 9 * 9 -> each square fill each digit
+    cols
+      9 * 9 -> each row each digit
+      9 * 9 -> each col each digit
+      9 * 9 -> each nine-squares each digit
+      9 * 9 -> whether each square fill
+  */
   for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
       for (let k = 0; k < 9; k++) {
@@ -40,7 +38,7 @@ export const generateSudoku = (maxTries: number = 50, target: number = 50) => {
   const cnt = dlx.solve(answer, 1);
 
   if (cnt == 0) {
-    return undefined;
+    return null;
   }
 
   dlx.finalSolution.map((value) => {
@@ -48,21 +46,29 @@ export const generateSudoku = (maxTries: number = 50, target: number = 50) => {
   });
 
   let keep = 81;
-  let step = 10;
   let curAnswer = answer;
   for (let i = 0; i < maxTries; i++) {
-    const nextAnswer = curAnswer.generateNewAnswers(keep - step);
-    if (dlx.solve(nextAnswer, 2) == 1) {
-      keep -= step;
-      curAnswer = nextAnswer;
-    } else if (keep < 50) {
-      // small step
-      step = Math.max(step - 2, 1);
+    const step = Math.min(keep - target, Math.floor(keep / 10));
+    if (step <= 0) {
+      break;
+    }
+    try {
+      const nextAnswer = curAnswer.generateNewAnswers(keep - step);
+      if (dlx.solve(nextAnswer, 2) == 1) {
+        keep -= step;
+        curAnswer = nextAnswer;
+      }
+    } catch (e) {
+      console.log(e);
+      continue;
     }
     if (keep <= target) {
       break;
     }
   }
+  console.log(`size: ${keep}, target: ${target}`);
+  console.log('puzzle:', curAnswer.dumpInline());
+  console.log('answer:', answer.dumpInline());
   return {
     answer,
     puzzle: curAnswer,

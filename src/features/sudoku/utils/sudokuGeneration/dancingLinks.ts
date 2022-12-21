@@ -2,6 +2,7 @@ import {toRowId} from './action';
 import {DualLink} from './dualLink';
 import {randomShuffle} from './utils';
 import {SudokuAnswer} from './sudokuAnswer';
+import {Constants} from '../../../../common/constants';
 
 export class DancingLinks {
   row: number;
@@ -17,7 +18,7 @@ export class DancingLinks {
   finalSolution: number[] = [];
   satisfy = 0;
   searched = 0;
-  maxStep = 1000000;
+  maxStep = Constants.maxStep;
 
   /*
     e: elements, s: subset

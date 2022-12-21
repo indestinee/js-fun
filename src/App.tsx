@@ -14,7 +14,7 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <NavLink className="nav-link" to="/sudoku">Sudoku</NavLink>
+            <NavLink className="nav-link" to="/js-fun/sudoku">Sudoku</NavLink>
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -27,11 +27,11 @@ function App() {
   return (
     <div>
       <Navigation/>
-      <div className="app-container container">
+      <div>
         <Spacing marginTop='1rem' />
         <Routes>
-          <Route path="/" element={<Sudoku/>}/>
-          <Route path="/sudoku" element={<Sudoku/>}/>
+          <Route path="/js-fun" element={<Sudoku />}/>
+          <Route path="/js-fun/sudoku" element={<Sudoku/>}/>
         </Routes>
       </div>
     </div>

@@ -1,7 +1,7 @@
 .game-board {
     margin: auto;
-    width: fit-content;
-    height: fit-content;
+    width: 100%;
+    height: 100%;
     text-align: center;
 }
 
@@ -9,39 +9,59 @@
     border-style: solid;
     border-width: 1px;
     border-color: #444444;
-    width: fit-content;
-    height: fit-content;
+    width: 100%;
+    height: 100%;
     margin: auto;
 }
 
 .choice-pad {
     margin: auto;
-    width: fit-content;
-    height: fit-content;
+    width: 92vw;
     text-align: center;
 }
 
 .action-pad {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    padding: 0;
     margin: auto;
-    width: fit-content;
-    height: fit-content;
+
+    width: 100%;
+    height: 2rem;
+
     text-align: center;
 }
 
 .action-button {
-    margin: 2px;
-    padding: 0;
-    text-align: center;
-    font-size: 1.5rem;
-    width: 2rem;
-    height: 2rem;
-    user-select: none;
-    line-height: 2rem;
     color: #165b9b;
+    width: auto;
 }
 
 .action-button.select {
     color: #0c3052;
+    width: auto;
+}
+
+.normal {
+    color: #165b9b;
+    width: auto;
+}
+
+.mistakes {
+    color: #ea2b2b;
+    width: auto;
+}
+
+.input-pad {
+    width: 3rem;
+    text-align: center;
+}
+
+.board {
+    width: 92vw;
+    height: 92vw;
+    margin: auto;
 }

@@ -1,3 +1,4 @@
+import {Constants} from '../../../../common/constants';
 import {SudokuAction} from './action';
 import {randomInt, randomShuffle} from './utils';
 
@@ -6,7 +7,7 @@ export class SudokuAnswer {
   values: number[][];
   constructor() {
     this.values = [...Array(9)].map(() =>
-      [...Array(9)].map(() => -1),
+      [...Array(9)].map(() => Constants.empty),
     );
   }
 
@@ -25,12 +26,22 @@ export class SudokuAnswer {
     const actions: SudokuAction[] = [];
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        if (this.values[i][j] != -1) {
+        if (this.values[i][j] != Constants.empty) {
           actions.push({px: i, py: j, value: this.values[i][j]});
         }
       }
     }
     return actions;
+  }
+
+  dumpInline() {
+    const result: number[] = [];
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        result.push(this.values[i][j]);
+      }
+    }
+    return result;
   }
 
   display() {
@@ -79,7 +90,7 @@ export class SudokuAnswer {
   };
 
   validToExecute(action: SudokuAction) {
-    if (this.values[action.px][action.py] != -1) {
+    if (this.values[action.px][action.py] != Constants.empty) {
       return false;
     }
 
