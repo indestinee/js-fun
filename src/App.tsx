@@ -32,6 +32,7 @@ function App() {
         <Routes>
           <Route path="/js-fun" element={<Sudoku />}/>
           <Route path="/js-fun/sudoku" element={<Sudoku/>}/>
+          <Route path="*" element={<Sudoku/>}/>
         </Routes>
       </div>
     </div>
