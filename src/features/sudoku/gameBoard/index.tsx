@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {FaUndoAlt, FaPlus, FaRegDizzy, FaRegSmileWink} from 'react-icons/fa';
 import {Constants} from '../../../common/constants';
 import {Spacing} from '../../../components/spacing';
@@ -22,9 +22,13 @@ const calculate = (i: number, j: number) => {
 export const GameBoard = () => {
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    dispatch(newGame(difficulty));
+  }, []);
+
   const {mistakes} = useAppSelector((state: RootState) => state.sudoku);
   const currentDifficulty = useAppSelector(
-    (state: RootState) => state.sudoku.gameState.difficulty);
+    (state: RootState) => state.sudoku?.gameState.difficulty);
   const [difficulty, setDifficulty] = useState(Constants.initialDifficulty);
 
   return (
