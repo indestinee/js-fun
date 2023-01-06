@@ -5,11 +5,13 @@ import {
   SudokuSquareState,
   UpdateCountParam,
 } from '../common/interfaces';
-import initializeGame from '../features/sudoku/utils/initializeGame';
+import {
+  defaultState,
+  initializeGame,
+} from '../features/sudoku/utils/initializeGame';
 import {deepCopy} from '../features/sudoku/utils/sudoku';
 
-const initialState = initializeGame(
-  Constants.defaultStep, Constants.initialDifficulty);
+const initialState = defaultState();
 
 export const sudokuSlice = createSlice({
   name: 'sudoku',

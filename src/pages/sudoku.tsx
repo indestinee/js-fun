@@ -1,4 +1,4 @@
-import {GameBoard} from '../gameBoard';
+import {GameBoard} from '../features/sudoku/gameBoard';
 
 export default function Sudoku() {
   return (

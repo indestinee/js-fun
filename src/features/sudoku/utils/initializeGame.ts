@@ -3,7 +3,36 @@ import {GameState} from '../../../common/interfaces';
 import {deepCopy} from './sudoku';
 import {generateSudoku} from './sudokuGeneration/generation';
 
-export default (maxTries: number = 50, target: number = 20) => {
+export const defaultState = () => {
+  const squares = [...Array(81)]
+    .map(() => -1)
+    .map((value: number, index: number) => ({
+      index, value,
+      draft: [...Array(9)].map(() => false),
+      puzzle: true,
+    }));
+  const count = [...Array(9)].map(() => 0);
+
+  const initialGameState: GameState = {
+    squares,
+    difficulty: -1,
+    selected: Constants.empty,
+    count,
+    errored: false,
+  };
+
+  const state = {
+    gameState: initialGameState,
+    gameStateHistory: [deepCopy(initialGameState)],
+    answer: [...Array(81)].map(() => -1),
+    mistakes: 0,
+  };
+
+  console.log('initial state:', state);
+  return state;
+};
+
+export const initializeGame = (maxTries: number = 50, target: number = 20) => {
   console.log('initializing game...');
   const result = generateSudoku(maxTries, target);
 

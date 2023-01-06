@@ -1,10 +1,10 @@
 import {Route, Routes} from 'react-router-dom';
 import {Container, Nav, Navbar} from 'react-bootstrap';
 import {NavLink} from 'react-router-dom';
-import {Spacing} from './components/spacing';
-import Sudoku from './features/sudoku/pages';
+import Sudoku from './pages/sudoku';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import HappyBall from './pages/happyBall';
 
 const Navigation = () => {
   return (
@@ -15,6 +15,9 @@ const Navigation = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <NavLink className="nav-link" to="/js-fun/sudoku">Sudoku</NavLink>
+            <NavLink className="nav-link" to="/js-fun/happy-ball">
+              HappyBall
+            </NavLink>
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -27,14 +30,12 @@ function App() {
   return (
     <div>
       <Navigation/>
-      <div>
-        <Spacing marginTop='1rem' />
-        <Routes>
-          <Route path="/js-fun" element={<Sudoku />}/>
-          <Route path="/js-fun/sudoku" element={<Sudoku/>}/>
-          <Route path="*" element={<Sudoku/>}/>
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/js-fun" element={<Sudoku />}/>
+        <Route path="/js-fun/sudoku" element={<Sudoku/>}/>
+        <Route path="/js-fun/happy-ball" element={<HappyBall/>}/>
+        <Route path="*" element={<HappyBall/>}/>
+      </Routes>
     </div>
   );
 }
