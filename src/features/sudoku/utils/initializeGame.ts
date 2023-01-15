@@ -34,6 +34,7 @@ export const defaultState = () => {
 
 export const initializeGame = (maxTries: number = 50, target: number = 20) => {
   console.log('initializing game...');
+  const startTime = (new Date).getTime();
   const result = generateSudoku(maxTries, target);
 
   if (!result) {
@@ -70,5 +71,7 @@ export const initializeGame = (maxTries: number = 50, target: number = 20) => {
   };
 
   console.log('initial state:', state);
+  const endTime = (new Date).getTime();
+  console.log('cost time:', (endTime - startTime) / 1000);
   return state;
 };

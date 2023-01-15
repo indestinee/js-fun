@@ -31,10 +31,10 @@ function App() {
     <div>
       <Navigation/>
       <Routes>
-        <Route path="/js-fun" element={<Sudoku />}/>
+        <Route path="/js-fun" element={<></>}/>
         <Route path="/js-fun/sudoku" element={<Sudoku/>}/>
         <Route path="/js-fun/happy-ball" element={<HappyBall/>}/>
-        <Route path="*" element={<HappyBall/>}/>
+        <Route path="*" element={<></>}/>
       </Routes>
     </div>
   );
