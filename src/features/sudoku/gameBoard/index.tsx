@@ -28,7 +28,7 @@ export const GameBoard = () => {
 
   const {mistakes} = useAppSelector((state: RootState) => state.sudoku);
   const currentDifficulty = useAppSelector(
-    (state: RootState) => state.sudoku?.gameState.difficulty);
+    (state: RootState) => state.sudoku.gameState.difficulty);
   const [difficulty, setDifficulty] = useState(Constants.initialDifficulty);
 
   return (
