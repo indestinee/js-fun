@@ -3,6 +3,11 @@ export interface UpdateCountParam {
   value: number,
 }
 
+export interface NewGameParam {
+  maxTries: number,
+  target: number,
+}
+
 export interface ClearDraftParam {
   indices: number[],
   value: number,

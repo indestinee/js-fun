@@ -47,17 +47,22 @@ export const generateSudoku = (maxTries: number = 50, target: number = 50) => {
 
   let keep = 81;
   let curAnswer = answer;
+  let decay = 1;
   for (let i = 0; i < maxTries; i++) {
-    const step = Math.min(keep - target, Math.floor(keep / 10));
+    const step = Math.min(keep - target,
+      Math.max(1, Math.floor(keep / 10 / decay)));
     if (step <= 0) {
       break;
     }
+    console.log('round', i, 'next step', step, keep, target, decay);
     try {
       const nextAnswer = curAnswer.generateNewAnswers(keep - step);
       if (dlx.solve(nextAnswer, 2) == 1) {
         keep -= step;
         curAnswer = nextAnswer;
+        decay = 1;
       }
+      decay += 1;
     } catch (e) {
       console.log(e);
       continue;
@@ -66,9 +71,7 @@ export const generateSudoku = (maxTries: number = 50, target: number = 50) => {
       break;
     }
   }
-  console.log(`size: ${keep}, target: ${target}`);
-  console.log('puzzle:', curAnswer.dumpInline());
-  console.log('answer:', answer.dumpInline());
+  console.log('sudoku puzzle:', {answer, puzzle: curAnswer, keep});
   return {
     answer,
     puzzle: curAnswer,

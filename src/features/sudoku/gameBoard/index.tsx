@@ -22,20 +22,23 @@ const calculate = (i: number, j: number) => {
 export const GameBoard = () => {
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(newGame(difficulty));
-  }, []);
+  useEffect(() => createNewGame(difficulty, maxTries), []);
+
+  const createNewGame = (difficulty: number, maxTries: number) => {
+    dispatch(newGame({target: difficulty, maxTries}));
+  };
 
   const {mistakes} = useAppSelector((state: RootState) => state.sudoku);
   const currentDifficulty = useAppSelector(
     (state: RootState) => state.sudoku?.gameState.difficulty);
-  const [difficulty, setDifficulty] = useState(Constants.initialDifficulty);
+  const [difficulty, setDifficulty] = useState(Constants.defaultDifficulty);
+  const [maxTries, setMaxTries] = useState(Constants.defaultMaxTries);
 
   return (
     <div className="game-board">
       <div className='action-pad'>
         <div className='action-button'
-          onClick={() => dispatch(newGame(difficulty))}>
+          onClick={() => createNewGame(difficulty, maxTries)}>
           <FaPlus />
         </div> &nbsp;
         <div className='action-button' onClick={() => dispatch(revert())}>
@@ -48,15 +51,31 @@ export const GameBoard = () => {
       </div>
       <div className='action-pad'>
         <div className='normal'>
+          <span>
           Difficulty Current : {currentDifficulty} &nbsp;
-          Target:
-          <input className='input-pad'
-            value={difficulty}
-            onChange={(event) => {
-              const val = parseInt(event.target.value);
-              setDifficulty(Number.isNaN(val) ? 0 : val);
-            }}
-          />
+          </span>
+
+          <span>
+          Target:&nbsp;
+            <input className='input-pad'
+              value={difficulty}
+              onChange={(event) => {
+                const val = parseInt(event.target.value);
+                setDifficulty(Number.isNaN(val) ? 0 : val);
+              }}
+            />
+          </span>
+          &nbsp;&nbsp;&nbsp;
+          <span>
+          Max Tries:&nbsp;
+            <input className='input-pad'
+              value={maxTries}
+              onChange={(event) => {
+                const val = parseInt(event.target.value);
+                setMaxTries(Number.isNaN(val) ? 0 : val);
+              }}
+            />
+          </span>
         </div>
       </div>
       <Spacing marginBottom='1rem' />

@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Constants} from '../common/constants';
 import {
   ClearDraftParam,
+  NewGameParam,
   SudokuSquareState,
   UpdateCountParam,
 } from '../common/interfaces';
@@ -47,9 +47,9 @@ export const sudokuSlice = createSlice({
       state.gameStateHistory.pop();
       state.gameState = state.gameStateHistory[state.gameStateHistory.length-1];
     },
-    newGame: (state, action: PayloadAction<number>) => {
+    newGame: (state, action: PayloadAction<NewGameParam>) => {
       Object.assign(state,
-        initializeGame(Constants.defaultStep, action.payload));
+        initializeGame(action.payload.maxTries, action.payload.target));
     },
   },
 });

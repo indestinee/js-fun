@@ -28,12 +28,11 @@ export const defaultState = () => {
     mistakes: 0,
   };
 
-  console.log('initial state:', state);
   return state;
 };
 
-export const initializeGame = (maxTries: number = 50, target: number = 20) => {
-  console.log('initializing game...');
+export const initializeGame = (maxTries: number, target: number) => {
+  console.log(`initializing game with maxTries: ${maxTries} target: ${target}`);
   const result = generateSudoku(maxTries, target);
 
   if (!result) {
@@ -69,6 +68,5 @@ export const initializeGame = (maxTries: number = 50, target: number = 20) => {
     mistakes: 0,
   };
 
-  console.log('initial state:', state);
   return state;
 };
