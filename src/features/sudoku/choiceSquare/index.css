@@ -17,11 +17,12 @@
 }
 
 .choice-square {
+    aspect-ratio: 1 / 1;
     display: flex;
     justify-content: center;
     align-items: center;
     background: #fff;
-    font-size: 6vw;
+    font-size: min(500px/9*0.8, 100vw/9*0.8);
     background: #ebeef3;
     color: #2c71db;
     border-radius: 5px;

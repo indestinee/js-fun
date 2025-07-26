@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
 import {FaUndoAlt, FaPlus, FaRegDizzy, FaRegSmileWink} from 'react-icons/fa';
 import {Constants} from '../../../common/constants';
-import {Spacing} from '../../../components/spacing';
 import {Stack} from '../../../components/stack';
+import {Text} from '../../../components/text';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {RootState} from '../../../redux/store';
 import {revert, newGame} from '../../../redux/sudokuSlice';
@@ -40,45 +40,38 @@ export const GameBoard = () => {
         <div className='action-button'
           onClick={() => createNewGame(difficulty, maxTries)}>
           <FaPlus />
-        </div> &nbsp;
+        </div>
         <div className='action-button' onClick={() => dispatch(revert())}>
           <FaUndoAlt />
-        </div> &nbsp;
+        </div>
         <div className={`${mistakes > 0 ? 'mistakes' : 'normal'}`}>
-          Mistake: {mistakes} &nbsp;
+          Mistake: {mistakes}
+        </div>
+        <div className={`${mistakes > 0 ? 'mistakes' : 'normal'}`}>
           {mistakes > 0 ? <FaRegDizzy /> : <FaRegSmileWink /> }
         </div>
       </div>
-      <div className='action-pad'>
-        <div className='normal'>
-          <span>
-          Difficulty Current : {currentDifficulty} &nbsp;
-          </span>
-
-          <span>
-          Target:&nbsp;
-            <input className='input-pad'
-              value={difficulty}
-              onChange={(event) => {
-                const val = parseInt(event.target.value);
-                setDifficulty(Number.isNaN(val) ? 0 : val);
-              }}
-            />
-          </span>
-          &nbsp;&nbsp;&nbsp;
-          <span>
-          Max Tries:&nbsp;
-            <input className='input-pad'
-              value={maxTries}
-              onChange={(event) => {
-                const val = parseInt(event.target.value);
-                setMaxTries(Number.isNaN(val) ? 0 : val);
-              }}
-            />
-          </span>
-        </div>
+      <div className='action-pad normal'>
+        <Text>Difficulty Current: {currentDifficulty}</Text>
+        <Text>Target:
+          <input className='input-pad'
+            value={difficulty}
+            onChange={(event) => {
+              const val = parseInt(event.target.value);
+              setDifficulty(Number.isNaN(val) ? 0 : val);
+            }}
+          />
+        </Text>
+        <Text>Max Tries:
+          <input className='input-pad'
+            value={maxTries}
+            onChange={(event) => {
+              const val = parseInt(event.target.value);
+              setMaxTries(Number.isNaN(val) ? 0 : val);
+            }}
+          />
+        </Text>
       </div>
-      <Spacing marginBottom='1rem' />
       <div className='board'>
         <div className="nine-square">
           <Stack childrens={(
@@ -97,7 +90,6 @@ export const GameBoard = () => {
           )} rows={3} cols={3} />
         </div>
       </div>
-      <Spacing marginTop='2rem' />
       <div className='choice-pad'>
         <Stack childrens={(
           [...Array(18)].map((_, i) => (
@@ -107,7 +99,6 @@ export const GameBoard = () => {
         rows={2} cols={9}
         />
       </div>
-      <Spacing marginTop='1rem' />
     </div>
   );
 };

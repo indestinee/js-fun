@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Constants} from '../../../common/constants';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {RootState} from '../../../redux/store';
@@ -65,6 +65,23 @@ export const ChoiceSquare = ({value, isDraft}: ChoiceSquareParam) => {
       draft: [...Array(9)].map(() => false),
     }));
   };
+
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (!isDraft && e.key === String(value+1)) {
+      fillNumber();
+    }
+    const draft = [...squares[selected].draft];
+    if (isDraft && e.key == '?' && !draft[value]) {
+      fillNumber();
+    }
+  };
+  useEffect(() => {
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [value, isDraft, fillNumber, onkeydown]);
+
 
   return (
     <div
