@@ -1,7 +1,7 @@
 import {toRowId} from './action';
 import {DualLink} from './dualLink';
 import {randomShuffle} from './utils';
-import {SudokuAnswer} from './sudokuAnswer';
+import type {SudokuAnswer} from './sudokuAnswer';
 import {Constants} from '../../../../common/constants';
 
 export class DancingLinks {

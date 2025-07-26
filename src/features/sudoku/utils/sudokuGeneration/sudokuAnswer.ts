@@ -1,5 +1,5 @@
 import {Constants} from '../../../../common/constants';
-import {SudokuAction} from './action';
+import type {SudokuAction} from './action';
 import {randomInt, randomShuffle} from './utils';
 
 

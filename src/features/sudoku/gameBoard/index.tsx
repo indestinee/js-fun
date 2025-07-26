@@ -4,7 +4,7 @@ import {Constants} from '../../../common/constants';
 import {Stack} from '../../../components/stack';
 import {Text} from '../../../components/text';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
-import {RootState} from '../../../redux/store';
+import type {RootState} from '../../../redux/store';
 import {revert, newGame} from '../../../redux/sudokuSlice';
 import {ChoiceSquare} from '../choiceSquare';
 import {SudokuSquare} from '../sudokuSquare';

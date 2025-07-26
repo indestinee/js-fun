@@ -1,5 +1,5 @@
 import {Constants} from '../../../common/constants';
-import {GameState} from '../../../common/interfaces';
+import type {GameState} from '../../../common/interfaces';
 import {deepCopy} from './sudoku';
 import {generateSudoku} from './sudokuGeneration/generation';
 

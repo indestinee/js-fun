@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {Constants} from '../../../common/constants';
 import {Stack} from '../../../components/stack';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
-import {RootState} from '../../../redux/store';
+import type {RootState} from '../../../redux/store';
 import {setErrored, setSelected} from '../../../redux/sudokuSlice';
 import './index.css';
 

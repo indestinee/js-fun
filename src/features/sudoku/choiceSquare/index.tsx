@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Constants} from '../../../common/constants';
 import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
-import {RootState} from '../../../redux/store';
+import type {RootState} from '../../../redux/store';
 import {
   clearDraft,
   deltaCount,
